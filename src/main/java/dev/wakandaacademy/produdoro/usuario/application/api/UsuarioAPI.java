@@ -1,10 +1,9 @@
 package dev.wakandaacademy.produdoro.usuario.application.api;
 
-import javax.validation.Valid;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -20,7 +19,7 @@ public interface UsuarioAPI {
 
 
 	@PatchMapping(value = "/pausaLonga/{idUsuario}")
-	@ResponseStatus(code = HttpStatus.OK)
+	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	void mudaStatusPausaLongaId(@RequestHeader(name = "Authorization",required = true) String token,
 								@PathVariable UUID idUsuario);
 }
