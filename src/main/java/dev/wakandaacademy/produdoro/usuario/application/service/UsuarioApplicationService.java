@@ -48,14 +48,24 @@ public class UsuarioApplicationService implements UsuarioService {
 
 
 	@Override
-	public void mudaStatusParaFoco(String usuarioEmail, UUID idUsuario) {
+	public void mudaStatusParaFoco(String emailUsuario, UUID idUsuario) {
 		log.info("[inicia] UsuarioApplicationService - mudaStatusParaFoco");
-		Usuario usuario = usuarioRepository.buscaUsuarioPorEmail(usuarioEmail);
-		if(!idUsuario.equals(usuario.getIdUsuario())) {
-			throw APIException.build(HttpStatus.UNAUTHORIZED, "Usuário não autorizado!");
-		}
-		usuario.mudaParaFoco();
+		Usuario usuario = usuarioRepository.buscaUsuarioPorEmail(emailUsuario);
+		usuario.validaUsuarioPorId(idUsuario);
+		usuario.mudaStatusParaFoco();
 		usuarioRepository.salva(usuario);
 		log.info("[finaliza] UsuarioApplicationService - mudaStatusParaFoco");		
+	}
+	
+	@Override
+	public void pausaCurta(String email, UUID idUsuario) {
+		log.info("[inicia] UsuarioApplicationService - pausaCurta");
+		Usuario usuario = usuarioRepository.buscaUsuarioPorId(idUsuario);
+		if (!usuario.getEmail().equals(email)) {
+			throw APIException.build(HttpStatus.BAD_REQUEST, "Usuário diferente do logado");
+		}
+		usuario.pausaCurta();
+		usuarioRepository.salva(usuario);
+		log.info("[finaliza] UsuarioApplicationService - pausaCurta");		
 	}
 }

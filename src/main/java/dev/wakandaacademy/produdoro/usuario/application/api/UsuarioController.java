@@ -42,17 +42,25 @@ public class UsuarioController implements UsuarioAPI {
 	@Override
 	public void mudaStatusParaFoco(String token, UUID idUsuario) {
 		log.info("[inicia] UsuarioController - mudaStatusParaFoco");
-		log.info("[idUsuario] {}", idUsuario);
-		String usuarioEmail = tokenService.getUsuarioByBearerToken(token)
-				.orElseThrow(() -> APIException.build(HttpStatus.FORBIDDEN, "Token não é válido!"));
-		usuarioAppplicationService.mudaStatusParaFoco(usuarioEmail, idUsuario);
+		String emailUsuario = getUsuarioByToken(token);
+		usuarioAppplicationService.mudaStatusParaFoco(emailUsuario, idUsuario);
 		log.info("[finaliza] UsuarioController - mudaStatusParaFoco");
+	}
+	
+	@Override
+	public void pausaCurta(String token, UUID idUsuario) {
+		log.info("[inicia] UsuarioController - pausaCurta");
+		log.info("[idUsuario] {}", idUsuario);
+		String usuario = tokenService.getUsuarioByBearerToken(token)
+				.orElseThrow(() -> APIException.build(HttpStatus.FORBIDDEN, "Token inválido!"));
+		usuarioAppplicationService.pausaCurta(usuario, idUsuario);
+		log.info("[finaliza] UsuarioController - pausaCurta");
 	}
 	
 	private String getUsuarioByToken(String token) {
 		log.debug("[token] {}", token);
 		String usuario = tokenService.getUsuarioByBearerToken(token)
-				.orElseThrow(() -> APIException.build(HttpStatus.UNAUTHORIZED, token));
+				.orElseThrow(() -> APIException.build(HttpStatus.UNAUTHORIZED, "Token inválido!"));
 		log.info("[usuario] {}", usuario);
 		return usuario;
 	}
