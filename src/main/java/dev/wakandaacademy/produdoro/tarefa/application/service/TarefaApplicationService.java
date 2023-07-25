@@ -1,11 +1,9 @@
 package dev.wakandaacademy.produdoro.tarefa.application.service;
 
 import dev.wakandaacademy.produdoro.handler.APIException;
-import dev.wakandaacademy.produdoro.tarefa.application.api.ListTarefaResponse;
 import dev.wakandaacademy.produdoro.tarefa.application.api.TarefaIdResponse;
 import dev.wakandaacademy.produdoro.tarefa.application.api.TarefaRequest;
 import dev.wakandaacademy.produdoro.tarefa.application.repository.TarefaRepository;
-import dev.wakandaacademy.produdoro.tarefa.domain.StatusAtivacaoTarefa;
 import dev.wakandaacademy.produdoro.tarefa.domain.Tarefa;
 import dev.wakandaacademy.produdoro.usuario.application.repository.UsuarioRepository;
 import dev.wakandaacademy.produdoro.usuario.domain.Usuario;
@@ -14,9 +12,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -56,12 +51,4 @@ public class TarefaApplicationService implements TarefaService {
 
     }
 
-
-    @Override
-    public List<ListTarefaResponse> getTodasTarefas() {
-        log.info("[inicia] TarefaApplicationService - getTodasTarefas");
-        List<Tarefa> tarefas = tarefaRepository.getTodasTarefas();
-        log.info("[inicia] TarefaApplicationService - getTodasTarefas");
-        return ListTarefaResponse.converte(tarefas);
-    }
 }
