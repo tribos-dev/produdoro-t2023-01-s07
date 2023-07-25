@@ -2,6 +2,7 @@ package dev.wakandaacademy.produdoro.usuario.application.service;
 
 import javax.validation.Valid;
 
+import dev.wakandaacademy.produdoro.handler.APIException;
 import dev.wakandaacademy.produdoro.usuario.application.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,14 @@ public class UsuarioApplicationService implements UsuarioService {
 		Usuario usuario = usuarioRepository.buscaUsuarioPorId(idUsuario);
 		log.info("[finaliza] UsuarioApplicationService - buscaUsuarioPorId");
 		return new UsuarioCriadoResponse(usuario);
+	}
+
+	@Override
+	public void mudaStatusPausaLongaId(UUID idUsuario) {
+		log.info("[inicia] UsuarioApplicationService - mudaStatusPausaLongaId");
+		usuarioRepository.buscaUsuarioPorId(idUsuario);
+		log.info("[finaliza] UsuarioApplicationService - mudaStatusPausaLongaId");
+
 	}
 
 
