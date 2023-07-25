@@ -21,4 +21,7 @@ public interface TarefaAPI {
     @PatchMapping("/{idTarefa}/conclui")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void concluiTarefa(@RequestHeader(name = "Authorization",required = true) String token,@PathVariable UUID idTarefa);
+    @DeleteMapping("/{idTarefa}/limpaTarefasConcluidas")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void limparTarefasConcluidas(@RequestHeader(name = "Authorization",required = true) String token,@PathVariable UUID idUsuario);
 }
