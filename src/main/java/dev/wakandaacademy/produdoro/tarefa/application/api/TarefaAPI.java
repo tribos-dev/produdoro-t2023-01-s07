@@ -30,4 +30,5 @@ public interface TarefaAPI {
     void ativaTarefa(@RequestHeader(name = "Authorization",required = true) String token,
                                           @PathVariable UUID idTarefa);
 
+
 }
