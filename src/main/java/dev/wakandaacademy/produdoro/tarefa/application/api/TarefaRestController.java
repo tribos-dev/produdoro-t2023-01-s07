@@ -35,10 +35,10 @@ public class TarefaRestController implements TarefaAPI {
 	}
 
 	@Override
-	public void ativaTarefa(String token, UUID idTarefa) {
+	public void ativaTarefa(UUID idTarefa, UUID idUsuario, String token) {
 		log.info("[inicia] TarefaRestController - ativaTarefa");
-		String usuario = getUsuarioByToken(token);
-		tarefaService.ativaTarefa(usuario, idTarefa);
+		String usuarioEmail = getUsuarioByToken(token);
+		tarefaService.ativaTarefa(idTarefa, idUsuario, usuarioEmail);
 		log.info("[finaliza] TarefaRestController - ativaTarefa");
 	}
 
