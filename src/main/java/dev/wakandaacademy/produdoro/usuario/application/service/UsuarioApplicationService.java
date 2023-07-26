@@ -32,7 +32,6 @@ public class UsuarioApplicationService implements UsuarioService {
 		return new UsuarioCriadoResponse(usuario);
 	}
 
-
 	@Override
 	public UsuarioCriadoResponse buscaUsuarioPorId(UUID idUsuario) {
 		log.info("[inicia] UsuarioApplicationService - buscaUsuarioPorId");
@@ -48,6 +47,5 @@ public class UsuarioApplicationService implements UsuarioService {
 		usuario.mudaStatusPausaLonga();
 		usuarioRepository.salva(usuario);
 		log.info("[finaliza] UsuarioApplicationService - mudaStatusPausaLongaId");
-
 	}
 }
