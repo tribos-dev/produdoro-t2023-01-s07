@@ -2,14 +2,13 @@ package dev.wakandaacademy.produdoro.tarefa.application.api;
 
 import lombok.*;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.UUID;
 
 @Value
-@NoArgsConstructor(access = AccessLevel.PUBLIC, force = true)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+//@NoArgsConstructor(access = AccessLevel.PUBLIC, force = true)
+//@AllArgsConstructor(access = AccessLevel.PRIVATE)
 
 public class TarefaRequest {
 

@@ -41,7 +41,7 @@ public class UsuarioController implements UsuarioAPI {
 	public void mudaStatusPausaLongaId(String token, UUID idUsuario) {
 		log.info("[inicia] UsuarioController - mudaStatusPausaLongaId");
 		String usuario = getUsuarioByToken(token);
-		usuarioAppplicationService.mudaStatusPausaLongaId(idUsuario);
+		usuarioAppplicationService.mudaStatusPausaLongaId(usuario, idUsuario);
 		log.info("[finaliza] UsuarioController - mudaStatusPausaLongaId");
 	}
 
