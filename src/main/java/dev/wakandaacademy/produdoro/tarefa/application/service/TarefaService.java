@@ -9,5 +9,5 @@ public interface TarefaService {
     TarefaIdResponse criaNovaTarefa(TarefaRequest tarefaRequest);
     Tarefa detalhaTarefa(String usuario, UUID idTarefa);
 
-    void removeTarefasConmcluidas(String usuarioEmail, UUID idUsuario);
+    void removeTarefasConcluidas(String usuarioEmail, UUID idUsuario);
 }
