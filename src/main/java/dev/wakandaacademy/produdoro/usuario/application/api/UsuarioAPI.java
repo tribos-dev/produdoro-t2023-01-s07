@@ -17,7 +17,6 @@ public interface UsuarioAPI {
 	@ResponseStatus(code = HttpStatus.OK)
 	UsuarioCriadoResponse buscaUsuarioPorId(@PathVariable UUID idUsuario);
 
-
 	@PatchMapping(value = "/pausaLonga/{idUsuario}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
 	void mudaStatusPausaLongaId(@RequestHeader(name = "Authorization",required = true) String token,
