@@ -14,7 +14,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -36,7 +35,7 @@ class TarefaApplicationServiceTest {
     @Mock
     TarefaRepository tarefaRepository;
 
-    @MockBean
+    @Mock
     UsuarioRepository usuarioRepository;
 
     @Test
@@ -56,12 +55,10 @@ class TarefaApplicationServiceTest {
     void ativaTarefaDeveRetornarTarefaAtiva() {
         UUID idTarefa = DataHelper.createTarefa().getIdTarefa();
         UUID idUsuario = DataHelper.createUsuario().getIdUsuario();
-        String email = "vastiane1@gmail.com";
+        String email = "usuariotest@gmail.com";
         Tarefa retorno = DataHelper.getTarefaForAtivaTarefa();
-        when(usuarioRepository.buscaUsuarioPorEmail(anyString()))
-                .thenReturn(DataHelper.createUsuario());
-        when(tarefaRepository.buscaTarefaPorId(any())).thenReturn(Optional
-                .of(DataHelper.createTarefa()));
+        when(usuarioRepository.buscaUsuarioPorEmail(anyString())).thenReturn(DataHelper.createUsuario());
+        when(tarefaRepository.buscaTarefaPorId(any())).thenReturn(Optional.of(DataHelper.createTarefa()));
         tarefaApplicationService.ativaTarefa(idTarefa, idUsuario, email);
         verify(tarefaRepository,times(1)).buscaTarefaPorId(idTarefa);
         assertEquals(StatusAtivacaoTarefa.ATIVA, retorno.getStatusAtivacao());

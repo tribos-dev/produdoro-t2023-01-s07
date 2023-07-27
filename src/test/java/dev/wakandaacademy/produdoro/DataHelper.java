@@ -15,6 +15,7 @@ public class DataHelper {
 
     private static final UUID usuario1 = UUID.fromString("a713162f-20a9-4db9-a85b-90cd51ab18f4");
 
+
     public static Usuario createUsuario() {
         return Usuario.builder().email("email@email.com").status(StatusUsuario.PAUSA_LONGA).idUsuario(usuario1).build();
     }
@@ -54,9 +55,24 @@ public class DataHelper {
         );
     }
 
- /*   public static Tarefa getTarefaForAtivaTarefa() {
-        Tarefa tarefa= Tarefa.builder().statusAtivacao(StatusAtivacaoTarefa.ATIVA)
-                .idTarefa(UUID.fromString("52d65da7-2258-4533-bf45-7c42ed8e9f86")).build();
-        return tarefa;
-    }*/
+    public static Tarefa getTarefaForAtivaTarefa() {
+        return Tarefa.builder()
+                .contagemPomodoro(2)
+                .descricao("teste concluído")
+                .statusAtivacao(StatusAtivacaoTarefa.ATIVA)
+                .idUsuario(UUID.fromString("b713162f-20a9-4db9-a85b-90cd51ab18f5"))
+                .idArea(UUID.randomUUID()).build();
+    }
+    public static final String TOKEN_VALIDO = "tokenValido@email.com";
+    
+    public static final UUID ID_USUARIO_VALIDO = UUID.fromString("0d51b6fe-ff69-4e36-a6ee-7b6983237872");
+    public static Usuario getUsuarioForAtivaTarefa() {
+        return Usuario.builder().idUsuario(ID_USUARIO_VALIDO)
+                .email(TOKEN_VALIDO)
+                .configuracao(null)
+                .status(StatusUsuario.FOCO)
+                .quantidadePomodorosPausaCurta(3)
+                .build();
+    }
+    
 }
