@@ -29,6 +29,7 @@ public class TarefaApplicationService implements TarefaService {
         log.info("[finaliza] TarefaApplicationService - criaNovaTarefa");
         return TarefaIdResponse.builder().idTarefa(tarefaCriada.getIdTarefa()).build();
     }
+
     @Override
     public Tarefa detalhaTarefa(String usuario, UUID idTarefa) {
         log.info("[inicia] TarefaApplicationService - detalhaTarefa");
@@ -43,6 +44,16 @@ public class TarefaApplicationService implements TarefaService {
 
     @Override
     public void incrementaPomodoro(UUID idUsuario, UUID idTarefa, String emailUsuario) {
+        log.info("[inicia] TarefaApplicationService - incrementaPomodoro");
+//        Usuario usuario = usuarioRepository.buscaUsuarioPorEmail(emailUsuario);
+//        Tarefa tarefa = tarefaRepository.buscaTarefaPorId(idTarefa).orElseThrow(() -> APIException.build(HttpStatus.NOT_FOUND, "Tarefa não encontrada!"));
+//        tarefa.pertenceAoUsuario(usuario);
+        Tarefa tarefa = detalhaTarefa(emailUsuario, idTarefa);
+        log.info("incrementa 1 Pomodoro");
+        tarefa.incrementaPomodoro();
+        tarefaRepository.salva(tarefa);
+        log.info("[finaliza] TarefaApplicationService - incrementaPomodoro");
 
     }
+
 }
