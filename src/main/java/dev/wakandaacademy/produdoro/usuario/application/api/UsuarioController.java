@@ -46,7 +46,7 @@ public class UsuarioController implements UsuarioAPI {
 		usuarioAppplicationService.mudaStatusParaFoco(emailUsuario, idUsuario);
 		log.info("[finaliza] UsuarioController - mudaStatusParaFoco");
 	}
-	
+
 	@Override
 	public void pausaCurta(String token, UUID idUsuario) {
 		log.info("[inicia] UsuarioController - pausaCurta");
@@ -56,7 +56,7 @@ public class UsuarioController implements UsuarioAPI {
 		usuarioAppplicationService.pausaCurta(usuario, idUsuario);
 		log.info("[finaliza] UsuarioController - pausaCurta");
 	}
-	
+
 	private String getUsuarioByToken(String token) {
 		log.debug("[token] {}", token);
 		String usuario = tokenService.getUsuarioByBearerToken(token)

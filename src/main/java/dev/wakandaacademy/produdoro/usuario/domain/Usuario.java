@@ -36,7 +36,7 @@ public class Usuario {
 	private StatusUsuario status = StatusUsuario.FOCO;
 	@Builder.Default
 	private Integer quantidadePomodorosPausaCurta = 0;
-	
+
 	public Usuario(UsuarioNovoRequest usuarioNovo, ConfiguracaoPadrao configuracaoPadrao) {
 		this.idUsuario = UUID.randomUUID();
 		this.email = usuarioNovo.getEmail();
@@ -47,14 +47,14 @@ public class Usuario {
 	public void mudaStatusParaFoco() {
 		this.status = StatusUsuario.FOCO;
 	}
-	
-	public void validaUsuarioPorId(UUID idUsuario){
-		if(!this.idUsuario.equals(idUsuario)){
+
+	public void validaUsuarioPorId(UUID idUsuario) {
+		if (!this.idUsuario.equals(idUsuario)) {
 			throw APIException.build(HttpStatus.UNAUTHORIZED, "Id não pertence ao usuario encontrado!");
 		}
 	}
 
 	public void pausaCurta() {
-		this.status = StatusUsuario.PAUSA_CURTA;		
+		this.status = StatusUsuario.PAUSA_CURTA;
 	}
 }

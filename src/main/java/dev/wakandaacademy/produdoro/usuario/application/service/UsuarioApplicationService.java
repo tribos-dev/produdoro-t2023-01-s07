@@ -31,12 +31,11 @@ public class UsuarioApplicationService implements UsuarioService {
 		log.info("[inicia] UsuarioApplicationService - criaNovoUsuario");
 		var configuracaoPadrao = pomodoroService.getConfiguracaoPadrao();
 		credencialService.criaNovaCredencial(usuarioNovo);
-		var usuario = new Usuario(usuarioNovo,configuracaoPadrao);
+		var usuario = new Usuario(usuarioNovo, configuracaoPadrao);
 		usuarioRepository.salva(usuario);
 		log.info("[finaliza] UsuarioApplicationService - criaNovoUsuario");
 		return new UsuarioCriadoResponse(usuario);
 	}
-
 
 	@Override
 	public UsuarioCriadoResponse buscaUsuarioPorId(UUID idUsuario) {
@@ -46,7 +45,6 @@ public class UsuarioApplicationService implements UsuarioService {
 		return new UsuarioCriadoResponse(usuario);
 	}
 
-
 	@Override
 	public void mudaStatusParaFoco(String emailUsuario, UUID idUsuario) {
 		log.info("[inicia] UsuarioApplicationService - mudaStatusParaFoco");
@@ -54,9 +52,9 @@ public class UsuarioApplicationService implements UsuarioService {
 		usuario.validaUsuarioPorId(idUsuario);
 		usuario.mudaStatusParaFoco();
 		usuarioRepository.salva(usuario);
-		log.info("[finaliza] UsuarioApplicationService - mudaStatusParaFoco");		
+		log.info("[finaliza] UsuarioApplicationService - mudaStatusParaFoco");
 	}
-	
+
 	@Override
 	public void pausaCurta(String email, UUID idUsuario) {
 		log.info("[inicia] UsuarioApplicationService - pausaCurta");
@@ -66,6 +64,6 @@ public class UsuarioApplicationService implements UsuarioService {
 		}
 		usuario.pausaCurta();
 		usuarioRepository.salva(usuario);
-		log.info("[finaliza] UsuarioApplicationService - pausaCurta");		
+		log.info("[finaliza] UsuarioApplicationService - pausaCurta");
 	}
 }

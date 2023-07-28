@@ -35,16 +35,10 @@ class UsuarioApplicationServiceTest {
 	private UsuarioApplicationService usuarioApplicationService;
 	@MockBean
 	private UsuarioRepository usuarioRepository;
-	private static final UUID usuario1 = UUID.fromString("a713162f-20a9-4db9-a85b-90cd51ab18f4");
 	@MockBean
 	private CredencialService credencialService;
 	@MockBean
 	private PomodoroService pomodoroService;
-
-	private Usuario getUser() {
-		return Usuario.builder().idUsuario(UUID.fromString("71cf6a3c-a4e4-4a08-bc8b-05da9065e984"))
-				.email("marily@gmail.com").build();
-	}
 
 	@Test
 	@DisplayName("Muda Status para foco")
