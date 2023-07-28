@@ -55,5 +55,4 @@ public class TarefaApplicationService implements TarefaService {
         log.info("[finaliza] TarefaApplicationService - ativaTarefa");
 
     }
-
 }

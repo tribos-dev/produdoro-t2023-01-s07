@@ -53,5 +53,4 @@ public class TarefaInfraRepository implements TarefaRepository {
         log.info("[finaliza] TarefaRepositoryMongoDB - desativaTarefa");
 
     }
-
 }
