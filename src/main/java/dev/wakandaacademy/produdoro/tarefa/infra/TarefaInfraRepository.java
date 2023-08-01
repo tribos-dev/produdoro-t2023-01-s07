@@ -42,16 +42,22 @@ public class TarefaInfraRepository implements TarefaRepository {
     }
 
     @Override
-    public void deleteTarefasConcluidas(UUID idUsuario) {
-        log.info("[inicia] TarefaInfraRepository - deleteTarefasConcluidas");
-        List<Tarefa> tarefasDoUsuario = tarefaSpringMongoDBRepository.findAllByIdUsuario(idUsuario);
-        List<Tarefa> tarefasConcluidas = tarefasDoUsuario.stream().filter(tarefa ->  tarefa.getStatus()== StatusTarefa.CONCLUIDA)
-                        .collect(Collectors.toList());
-        if(tarefasConcluidas.isEmpty()){
-            throw  APIException.build(HttpStatus.NOT_FOUND, "Não há tarefas concluidas para o usuário com o ID: " + idUsuario);
-        };
-        tarefaSpringMongoDBRepository.deleteAll(tarefasConcluidas);
-        log.info("[finaliza] TarefaInfraRepository - deleteTarefasConcluidas");
+    public void limpaTarefasConcluidas(UUID idUsuario) {
+        log.info("[inicia] TarefaInfraRepository - limpaTarefasConcluidas");
+        tarefaSpringMongoDBRepository.deleteAllByStatusAndIdUsuario(StatusTarefa.CONCLUIDA.name(), idUsuario);
+        log.info("[finaliza] TarefaInfraRepository - limpaTarefasConcluidas");
 
+    }
+
+    @Override
+    public  List<Tarefa> listTarefasConcluidas(UUID idUsuario) {
+        log.info("[inicia] TarefaInfraRepository - listTarefasConcluidas");
+        List<Tarefa> tarefasConcluidas = tarefaSpringMongoDBRepository.findAllByStatusAndIdUsuario(StatusTarefa.CONCLUIDA.name(), idUsuario);
+        if (tarefasConcluidas.isEmpty()) {
+            throw APIException.build(HttpStatus.NOT_FOUND,
+                    "Não há tarefas concluídas para o usuário com ID: " + idUsuario);
+        };
+        log.info("[finaliza] TarefaInfraRepository - listTarefasConcluidas");
+        return tarefasConcluidas;
     }
 }

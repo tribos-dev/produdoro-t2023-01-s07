@@ -45,8 +45,8 @@ public class TarefaApplicationService implements TarefaService {
     public void removeTarefasConcluidas(String usuarioEmail, UUID idUsuario) {
         log.info("[inicia] TarefaApplicationService - removeTarefasConcluidas");
         Usuario usuario = usuarioRepository.buscaUsuarioPorEmail(usuarioEmail);
-        validaIdUsuario(usuario.getIdUsuario(), idUsuario);
-        tarefaRepository.deleteTarefasConcluidas(idUsuario);
+        tarefaRepository.listTarefasConcluidas(idUsuario);
+        tarefaRepository.limpaTarefasConcluidas(idUsuario);
         log.info("[finaliza] TarefaApplicationService - removeTarefasConcluidas");
 
     }
