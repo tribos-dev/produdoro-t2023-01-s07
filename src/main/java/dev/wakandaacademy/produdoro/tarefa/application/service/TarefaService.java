@@ -10,7 +10,7 @@ public interface TarefaService {
 
     Tarefa detalhaTarefa(String usuario, UUID idTarefa);
 
-    void ativaTarefa(UUID idTarefa, UUID idUsuario, String usuarioEmail);
+    void ativaTarefa(UUID idTarefa, UUID idUsuario, String usuario);
 }
 
 

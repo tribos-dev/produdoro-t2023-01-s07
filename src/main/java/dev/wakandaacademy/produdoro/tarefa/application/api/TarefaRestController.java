@@ -37,14 +37,16 @@ public class TarefaRestController implements TarefaAPI {
 	@Override
 	public void ativaTarefa(UUID idTarefa, UUID idUsuario, String token) {
 		log.info("[inicia] TarefaRestController - ativaTarefa");
-		String usuarioEmail = getUsuarioByToken(token);
-		tarefaService.ativaTarefa(idTarefa, idUsuario, usuarioEmail);
+		String usuario = getUsuarioByToken(token);
+		tarefaService.ativaTarefa(idTarefa, idUsuario, usuario);
 		log.info("[finaliza] TarefaRestController - ativaTarefa");
 	}
 
+
 	private String getUsuarioByToken(String token) {
 		log.debug("[token] {}", token);
-		String usuario = tokenService.getUsuarioByBearerToken(token).orElseThrow(() -> APIException.build(HttpStatus.UNAUTHORIZED, token));
+		String usuario = tokenService.getUsuarioByBearerToken(token)
+				.orElseThrow(() -> APIException.build(HttpStatus.UNAUTHORIZED, token));
 		log.info("[usuario] {}", usuario);
 		return usuario;
 	}
