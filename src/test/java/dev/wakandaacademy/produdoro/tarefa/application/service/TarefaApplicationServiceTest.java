@@ -8,12 +8,14 @@ import dev.wakandaacademy.produdoro.tarefa.application.repository.TarefaReposito
 import dev.wakandaacademy.produdoro.tarefa.domain.StatusAtivacaoTarefa;
 import dev.wakandaacademy.produdoro.tarefa.domain.Tarefa;
 import dev.wakandaacademy.produdoro.usuario.application.repository.UsuarioRepository;
+import dev.wakandaacademy.produdoro.usuario.domain.Usuario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -75,6 +77,32 @@ class TarefaApplicationServiceTest {
     }
     @Test
     void deveAtivarTarefa(){
+    }
+    @Test
+    void deveIncrementarUmPomodoroATarefaOk(){
+        Usuario usuario = DataHelper.createUsuario();
+        UUID idUsuario = usuario.getIdUsuario();
+        Tarefa tarefa = DataHelper.createTarefa();
+        UUID idTarefa = tarefa.getIdTarefa();
+        String email = usuario.getEmail();
+        when(usuarioRepository.buscaUsuarioPorEmail(anyString())).thenReturn(usuario);
+        when(tarefaRepository.buscaTarefaPorId(any())).thenReturn(Optional.of(tarefa));
+        tarefaApplicationService.incrementaPomodoro(idUsuario, idTarefa, email);
+        verify(tarefaRepository,times(1)).salva(any());
+    }
+
+    @Test
+    void deveRetornarExcecaoUsuarioNaoDono(){
+        Usuario usuario = DataHelper.createUsuario();
+        UUID idUsuario = usuario.getIdUsuario();
+        Tarefa tarefa = Tarefa.builder().idUsuario(UUID.randomUUID()).build();
+        UUID idTarefa = tarefa.getIdTarefa();
+        String email = usuario.getEmail();
+        when(usuarioRepository.buscaUsuarioPorEmail(anyString())).thenReturn(usuario);
+        when(tarefaRepository.buscaTarefaPorId(any())).thenReturn(Optional.of(tarefa));
+        APIException ex = assertThrows(APIException.class, () -> tarefaApplicationService.incrementaPomodoro(idUsuario, idTarefa, email));
+        assertEquals("Usuário não é dono da Tarefa solicitada!" , ex.getMessage());
+        assertEquals(HttpStatus.UNAUTHORIZED , ex.getStatusException());
     }
 
 }
