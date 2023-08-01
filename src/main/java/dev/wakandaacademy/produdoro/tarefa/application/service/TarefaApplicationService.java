@@ -40,4 +40,19 @@ public class TarefaApplicationService implements TarefaService {
         log.info("[finaliza] TarefaApplicationService - detalhaTarefa");
         return tarefa;
     }
+
+    @Override
+    public void ativaTarefa(UUID idTarefa, UUID idUsuario, String usuarioEmail) {
+        log.info("[inicia] TarefaApplicationService - ativaTarefa");
+        Usuario usuario = usuarioRepository.buscaUsuarioPorEmail(usuarioEmail);
+        Tarefa tarefa = tarefaRepository.buscaTarefaPorId(idTarefa).orElseThrow(() -> APIException.build(HttpStatus.BAD_REQUEST, "id da Tarefa inválido"));
+        tarefa.pertenceAoUsuario(usuario);
+        tarefa.validaUsuario(idUsuario);
+        tarefa.ativaTarefa();
+        tarefaRepository.desativaTarefa(idUsuario);
+        tarefaRepository.salva(tarefa);
+        log.info("[finaliza] TarefaApplicationService - ativaTarefa");
+
+    }
+
 }
