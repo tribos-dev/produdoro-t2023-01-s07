@@ -73,10 +73,6 @@ class TarefaApplicationServiceTest {
         assertThrows(APIException.class,
                 () -> tarefaApplicationService.ativaTarefa(idTarefaInvalido, idUsuario, usuarioEmail));
     }
-    @Test
-    void deveAtivarTarefa(){
-    }
-
 }
 
 
