@@ -51,7 +51,6 @@ public class TarefaInfraRepository implements TarefaRepository {
         update.set("statusAtivacao", "INATIVA");
         mongoTemplate.updateMulti(query, update, Tarefa.class);
         log.info("[finaliza] TarefaRepositoryMongoDB - desativaTarefa");
-
     }
 
 }
