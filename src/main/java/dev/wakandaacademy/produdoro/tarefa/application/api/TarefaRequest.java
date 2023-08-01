@@ -1,9 +1,13 @@
 package dev.wakandaacademy.produdoro.tarefa.application.api;
 
-import lombok.*;
+
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import lombok.NonNull;
+import lombok.Value;
+
 import java.util.UUID;
 
 @Value
