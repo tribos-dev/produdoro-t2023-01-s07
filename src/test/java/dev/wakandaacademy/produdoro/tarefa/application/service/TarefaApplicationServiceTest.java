@@ -21,7 +21,6 @@ import java.util.UUID;
 import static dev.wakandaacademy.produdoro.DataHelper.getTarefaRequest;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -72,9 +71,12 @@ class TarefaApplicationServiceTest {
         String usuarioEmail = DataHelper.getUsuarioForAtivaTarefa().getEmail();
         when(tarefaRepository.buscaTarefaPorId(idTarefaInvalido)).thenThrow(APIException.class);
         assertThrows(APIException.class,
-                ()-> tarefaApplicationService.ativaTarefa(idTarefaInvalido, idUsuario, usuarioEmail));
-
+                () -> tarefaApplicationService.ativaTarefa(idTarefaInvalido, idUsuario, usuarioEmail));
     }
+    @Test
+    void deveAtivarTarefa(){
+    }
+
 }
 
 
