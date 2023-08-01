@@ -1,6 +1,7 @@
 package dev.wakandaacademy.produdoro;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import dev.wakandaacademy.produdoro.pomodoro.domain.ConfiguracaoPadrao;
@@ -14,6 +15,13 @@ import dev.wakandaacademy.produdoro.usuario.domain.Usuario;
 public class DataHelper {
 
     private static final UUID usuario1 = UUID.fromString("a713162f-20a9-4db9-a85b-90cd51ab18f4");
+
+    public static final String TOKEN_VALIDO = "tokenValido@email.com";
+    public static final UUID ID_TAREFA_VALIDO = UUID.fromString("8d58875d-2455-4075-8b5d-57c73fcf1241");
+    public static final UUID ID_USUARIO_VALIDO = UUID.fromString("0d51b6fe-ff69-4e36-a6ee-7b6983237872");
+    public static final UUID ID_AREA = UUID.fromString("462ff63d-412b-4a19-9c43-bc5969b15989");
+    public static final UUID ID_PROJETO = UUID.fromString("1fc65f65-4862-4598-a30c-f317dfb3cbe7");
+
 
     public static Usuario createUsuario() {
         return Usuario.builder().email("email@email.com").status(StatusUsuario.PAUSA_LONGA).idUsuario(usuario1).build();
