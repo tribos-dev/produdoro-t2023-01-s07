@@ -1,6 +1,6 @@
 package dev.wakandaacademy.produdoro.tarefa.application.service;
 
-<<<<<<< HEAD
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -16,7 +16,7 @@ import dev.wakandaacademy.produdoro.handler.APIException;
 import dev.wakandaacademy.produdoro.usuario.application.repository.UsuarioRepository;
 import dev.wakandaacademy.produdoro.usuario.domain.Usuario;
 import org.junit.jupiter.api.Assertions;
-=======
+
 import dev.wakandaacademy.produdoro.DataHelper;
 import dev.wakandaacademy.produdoro.handler.APIException;
 import dev.wakandaacademy.produdoro.tarefa.application.api.TarefaIdResponse;
@@ -26,7 +26,7 @@ import dev.wakandaacademy.produdoro.tarefa.domain.StatusAtivacaoTarefa;
 import dev.wakandaacademy.produdoro.tarefa.domain.Tarefa;
 import dev.wakandaacademy.produdoro.usuario.application.repository.UsuarioRepository;
 import org.junit.jupiter.api.DisplayName;
->>>>>>> dev
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -51,9 +51,6 @@ class TarefaApplicationServiceTest {
     //	@MockBean
     @Mock
     TarefaRepository tarefaRepository;
-    @Mock
-    UsuarioRepository usuarioRepository;
-
     @Mock
     UsuarioRepository usuarioRepository;
 
@@ -84,7 +81,6 @@ class TarefaApplicationServiceTest {
 
     }
     @Test
-<<<<<<< HEAD
     public void deveLimparTarefasConcluidas() {
 
         Usuario usuario = DataHelper.createUsuario();
@@ -115,7 +111,7 @@ class TarefaApplicationServiceTest {
     }
 
 
-=======
+
     @DisplayName("Teste Ativa Tarefa - Test Exception")
     void ativaTarefaDeveRetornarException() {
         UUID idTarefaInvalido = UUID.fromString("a713162f-20a9-4db9-a85b-90cd51ab18f4");
@@ -129,7 +125,7 @@ class TarefaApplicationServiceTest {
     void deveAtivarTarefa(){
     }
 
->>>>>>> dev
+
 }
 
 
