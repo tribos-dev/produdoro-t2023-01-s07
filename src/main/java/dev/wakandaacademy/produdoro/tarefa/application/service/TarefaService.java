@@ -10,6 +10,7 @@ import java.util.UUID;
 public interface TarefaService {
     TarefaIdResponse criaNovaTarefa(TarefaRequest tarefaRequest);
     Tarefa detalhaTarefa(String usuario, UUID idTarefa);
+    void editaTarefa(String usuario, UUID idTarefa, TarefaRequest tarefaRequest);
     void incrementaPomodoro(UUID idUsuario, UUID idTarefa, String emailUsuario);
     void removeTarefasConcluidas(String usuarioEmail, UUID idUsuario);
     void concluiTarefa(String usuarioEmail, UUID idTarefa);

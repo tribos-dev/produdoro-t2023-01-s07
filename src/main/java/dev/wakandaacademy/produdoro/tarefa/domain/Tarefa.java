@@ -59,6 +59,10 @@ public class Tarefa {
 		}
 	}
 
+    public void altera(TarefaRequest tarefaRequest) {
+		this.descricao = tarefaRequest.getDescricao();
+    }
+	
 	public void incrementaPomodoro() {
 		this.contagemPomodoro += 1;
 
