@@ -80,14 +80,17 @@ public class TarefaApplicationService implements TarefaService {
 
     }
 
-    private void validaIdUsuario(UUID idUsuario, UUID idUsuario1) {
-        log.info("[inicia] TarefaApplicationService - validaIdUsuario");
-        if(!idUsuario.equals(idUsuario1)){
-            throw APIException.build(HttpStatus.BAD_REQUEST,"Usuário não encontrado!");
-        }
-        log.info("[finaliza] TarefaApplicationService - validaIdUsuario");
+    @Override
+    public void incrementaPomodoro(UUID idUsuario, UUID idTarefa, String emailUsuario) {
+        log.info("[inicia] TarefaApplicationService - incrementaPomodoro");
+        Tarefa tarefa = detalhaTarefa(emailUsuario, idTarefa);
+        log.info("incrementa 1 Pomodoro");
+        tarefa.incrementaPomodoro();
+        tarefaRepository.salva(tarefa);
+        log.info("[finaliza] TarefaApplicationService - incrementaPomodoro");
     }
 
+    @Override
     public void ativaTarefa(UUID idTarefa, UUID idUsuario, String usuario) {
         log.info("[inicia] TarefaApplicationService - ativaTarefa");
         Usuario usuarioPorEmail = usuarioRepository.buscaUsuarioPorEmail(usuario);

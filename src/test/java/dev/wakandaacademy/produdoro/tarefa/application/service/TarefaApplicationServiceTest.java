@@ -25,7 +25,6 @@ import dev.wakandaacademy.produdoro.tarefa.application.repository.TarefaReposito
 import dev.wakandaacademy.produdoro.tarefa.domain.StatusAtivacaoTarefa;
 import dev.wakandaacademy.produdoro.tarefa.domain.Tarefa;
 
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doThrow;
@@ -157,6 +156,33 @@ class TarefaApplicationServiceTest {
         when(tarefaRepository.buscaTarefaPorId(idTarefaInvalido)).thenThrow(APIException.class);
         assertThrows(APIException.class,
                 () -> tarefaApplicationService.ativaTarefa(idTarefaInvalido, idUsuario, usuarioEmail));
+    }
+
+    @Test
+    void deveIncrementarUmPomodoroATarefaOk(){
+        Usuario usuario = DataHelper.createUsuario();
+        UUID idUsuario = usuario.getIdUsuario();
+        Tarefa tarefa = DataHelper.createTarefa();
+        UUID idTarefa = tarefa.getIdTarefa();
+        String email = usuario.getEmail();
+        when(usuarioRepository.buscaUsuarioPorEmail(anyString())).thenReturn(usuario);
+        when(tarefaRepository.buscaTarefaPorId(any())).thenReturn(Optional.of(tarefa));
+        tarefaApplicationService.incrementaPomodoro(idUsuario, idTarefa, email);
+        verify(tarefaRepository,times(1)).salva(any());
+    }
+
+    @Test
+    void deveRetornarExcecaoUsuarioNaoDono(){
+        Usuario usuario = DataHelper.createUsuario();
+        UUID idUsuario = usuario.getIdUsuario();
+        Tarefa tarefa = Tarefa.builder().idUsuario(UUID.randomUUID()).build();
+        UUID idTarefa = tarefa.getIdTarefa();
+        String email = usuario.getEmail();
+        when(usuarioRepository.buscaUsuarioPorEmail(anyString())).thenReturn(usuario);
+        when(tarefaRepository.buscaTarefaPorId(any())).thenReturn(Optional.of(tarefa));
+        APIException ex = assertThrows(APIException.class, () -> tarefaApplicationService.incrementaPomodoro(idUsuario, idTarefa, email));
+        assertEquals("Usuário não é dono da Tarefa solicitada!" , ex.getMessage());
+        assertEquals(HttpStatus.UNAUTHORIZED , ex.getStatusException());
     }
 
 	@Test
