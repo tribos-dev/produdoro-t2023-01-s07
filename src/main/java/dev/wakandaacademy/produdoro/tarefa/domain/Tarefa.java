@@ -3,7 +3,12 @@ package dev.wakandaacademy.produdoro.tarefa.domain;
 import dev.wakandaacademy.produdoro.handler.APIException;
 import dev.wakandaacademy.produdoro.tarefa.application.api.TarefaRequest;
 import dev.wakandaacademy.produdoro.usuario.domain.Usuario;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.AccessLevel;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -43,6 +48,10 @@ public class Tarefa {
 		this.statusAtivacao = StatusAtivacaoTarefa.INATIVA;
 		this.contagemPomodoro = 1;
 	}
+	
+	public void contagemPomodoro() {
+		this.contagemPomodoro += 1;
+	}
 
 	public void pertenceAoUsuario(Usuario usuarioPorEmail) {
 		if (!this.idUsuario.equals(usuarioPorEmail.getIdUsuario())) {
@@ -55,6 +64,10 @@ public class Tarefa {
 
 	}
 
+    public void concluiTarefa() {
+		this.status = StatusTarefa.CONCLUIDA;
+    }
+
 	public void ativaTarefa() {
 		this.statusAtivacao = StatusAtivacaoTarefa.ATIVA;
 	}
@@ -65,4 +78,5 @@ public class Tarefa {
 					.build(HttpStatus.UNAUTHORIZED, "Usuário não validado!");
 		}
 	}
+
 }
