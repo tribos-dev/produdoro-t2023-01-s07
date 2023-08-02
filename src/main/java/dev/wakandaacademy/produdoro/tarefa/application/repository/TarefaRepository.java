@@ -9,7 +9,14 @@ import java.util.UUID;
 public interface TarefaRepository {
 
     Tarefa salva(Tarefa tarefa);
+
     Optional<Tarefa> buscaTarefaPorId(UUID idTarefa);
     void limpaTarefasConcluidas(UUID idUsuario);
-    List<Tarefa>  listTarefasConcluidas(UUID idUsuario);
+    List<Tarefa> listTarefasConcluidas(UUID idUsuario);
+
+
+
+    void desativaTarefa(UUID idUsuario);
+
 }
+
