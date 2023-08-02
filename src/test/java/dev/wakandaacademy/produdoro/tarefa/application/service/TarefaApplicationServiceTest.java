@@ -1,19 +1,23 @@
 package dev.wakandaacademy.produdoro.tarefa.application.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 
-import java.util.Optional;
+import java.util.List;
 import java.util.UUID;
 
 import dev.wakandaacademy.produdoro.DataHelper;
 import dev.wakandaacademy.produdoro.handler.APIException;
-import dev.wakandaacademy.produdoro.tarefa.domain.StatusTarefa;
 import dev.wakandaacademy.produdoro.usuario.application.repository.UsuarioRepository;
 import dev.wakandaacademy.produdoro.usuario.domain.Usuario;
 import org.junit.jupiter.api.Assertions;
+
+import java.util.Optional;
+
+import dev.wakandaacademy.produdoro.tarefa.domain.StatusTarefa;
 
 import dev.wakandaacademy.produdoro.tarefa.application.api.TarefaIdResponse;
 import dev.wakandaacademy.produdoro.tarefa.application.api.TarefaRequest;
@@ -21,14 +25,13 @@ import dev.wakandaacademy.produdoro.tarefa.application.repository.TarefaReposito
 import dev.wakandaacademy.produdoro.tarefa.domain.StatusAtivacaoTarefa;
 import dev.wakandaacademy.produdoro.tarefa.domain.Tarefa;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 
@@ -67,8 +70,7 @@ class TarefaApplicationServiceTest {
 	}
 
 	public TarefaRequest getTarefaRequest() {
-		TarefaRequest request = new TarefaRequest("tarefa 1", UUID.randomUUID(), null, null, 0);
-		return request;
+        return new TarefaRequest("tarefa 1", UUID.randomUUID(), null, null, 0);
 	}
 
 	@Test
@@ -110,10 +112,42 @@ class TarefaApplicationServiceTest {
         when(tarefaRepository.buscaTarefaPorId(any()))
                 .thenThrow(APIException.build(HttpStatus.BAD_REQUEST, "Id tarefa não encontrado!"));
 
-        APIException ex = Assertions.assertThrows(APIException.class,
+        Assertions.assertThrows(APIException.class,
                 () -> tarefaApplicationService.concluiTarefa(usuario.getEmail(), UUID.randomUUID()));
 
     }
+
+    @Test
+    public void deveLimparTarefasConcluidas() {
+
+        Usuario usuario = DataHelper.createUsuario();
+
+        when(usuarioRepository.buscaUsuarioPorEmail(any())).thenReturn(usuario);
+        when(tarefaRepository.listTarefasConcluidas(any())).thenReturn(DataHelper.createListTarefa());
+
+        tarefaApplicationService.removeTarefasConcluidas(usuario.getEmail(), usuario.getIdUsuario());
+
+        verify(usuarioRepository, times(1)).buscaUsuarioPorEmail(usuario.getEmail());
+
+
+    }
+
+    @Test
+    public void naoExisteTarefasconcluidas() {
+
+        Usuario usuario = DataHelper.createUsuario();
+
+        when(usuarioRepository.buscaUsuarioPorEmail(any())).thenReturn(usuario);
+        doThrow(APIException.class).when(tarefaRepository).limpaTarefasConcluidas(usuario.getIdUsuario());
+
+        Assertions.assertThrows(APIException.class,
+                () -> tarefaApplicationService.removeTarefasConcluidas(usuario.getEmail(), usuario.getIdUsuario()));
+        verify(usuarioRepository, times(1)).buscaUsuarioPorEmail(usuario.getEmail());
+        verify(tarefaRepository, times(1)).limpaTarefasConcluidas(usuario.getIdUsuario());
+
+    }
+
+
 
     @DisplayName("Teste Ativa Tarefa - Test Exception")
     void ativaTarefaDeveRetornarException() {

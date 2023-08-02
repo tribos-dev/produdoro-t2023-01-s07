@@ -18,6 +18,7 @@ public class TarefaRestController implements TarefaAPI {
 	private final TarefaService tarefaService;
 	private final TokenService tokenService;
 
+	@Override
 	public TarefaIdResponse postNovaTarefa(TarefaRequest tarefaRequest) {
 		log.info("[inicia]  TarefaRestController - postNovaTarefa  ");
 		TarefaIdResponse tarefaCriada = tarefaService.criaNovaTarefa(tarefaRequest);
@@ -35,6 +36,14 @@ public class TarefaRestController implements TarefaAPI {
 	}
 
 	@Override
+	public void limpaTarefasConcluidas(String token, UUID idUsuario) {
+		log.info("[inicia] TarefaRestController - limpaTarefasConcluidas");
+		String usuarioEmail = getUsuarioByToken(token);
+		tarefaService.removeTarefasConcluidas(usuarioEmail, idUsuario);
+		log.info("[finaliza] TarefaRestController - limpaTarefasConcluidas");
+
+	}
+	@Override
 	public void concluiTarefa(String token, UUID idTarefa) {
 		log.info("[inicia] TarefaRestController - concluiTarefa");
 		String usuarioEmail = getUsuarioByToken(token);
@@ -48,7 +57,6 @@ public class TarefaRestController implements TarefaAPI {
 		log.info("[finaliza] TarefaRestController - ativaTarefa");
 
 	}
-
 
 	private String getUsuarioByToken(String token) {
 		log.debug("[token] {}", token);

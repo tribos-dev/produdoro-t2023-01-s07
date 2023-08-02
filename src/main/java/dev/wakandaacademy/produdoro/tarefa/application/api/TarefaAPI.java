@@ -6,7 +6,7 @@ import java.util.UUID;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
-
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,8 +27,13 @@ public interface TarefaAPI {
 
     @GetMapping("/{idTarefa}")
     @ResponseStatus(code = HttpStatus.OK)
-    TarefaDetalhadoResponse detalhaTarefa(@RequestHeader(name = "Authorization",required = true) String token, 
-    		@PathVariable UUID idTarefa);
+    TarefaDetalhadoResponse detalhaTarefa(@RequestHeader(name = "Authorization",required = true) String token, @PathVariable UUID idTarefa);
+
+
+    @DeleteMapping("usuario/{idUsuario}/limpaTarefasConcluidas")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void limpaTarefasConcluidas(@RequestHeader(name = "Authorization",required = true) String token,@PathVariable UUID idUsuario);
+    
     @PatchMapping("/{idTarefa}/conclui")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void concluiTarefa(@RequestHeader(name = "Authorization",required = true) String token,@PathVariable UUID idTarefa);
