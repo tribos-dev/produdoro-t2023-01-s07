@@ -12,14 +12,11 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
-
-
 import java.util.List;
 
 import org.springframework.data.mongodb.core.MongoTemplate;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Repository
 @Log4j2
@@ -47,6 +44,13 @@ public class TarefaInfraRepository implements TarefaRepository {
         log.info("[finaliza] TarefaInfraRepository - buscaTarefaPorId");
         return tarefaPorId;
     }
+	@Override
+	public List<Tarefa> buscarTodasTarefas(UUID idUsuario) {
+        log.info("[inicia] TarefaInfraRepository - buscarTodasTarefas");
+        List<Tarefa> listaTarefas = tarefaSpringMongoDBRepository.findAllByIdUsuario(idUsuario);
+        log.info("[finaliza] TarefaInfraRepository - buscarTodasTarefas");
+		return listaTarefas;
+	}
 
     @Override
 
@@ -64,7 +68,7 @@ public class TarefaInfraRepository implements TarefaRepository {
         if (tarefasConcluidas.isEmpty()) {
             throw APIException.build(HttpStatus.NOT_FOUND,
                     "Não há tarefas concluídas para o usuário com ID: " + idUsuario);
-        };
+        }
         log.info("[finaliza] TarefaInfraRepository - listTarefasConcluidas");
         return tarefasConcluidas;
     }
@@ -78,6 +82,4 @@ public class TarefaInfraRepository implements TarefaRepository {
         mongoTemplate.updateMulti(query, update, Tarefa.class);
         log.info("[finaliza] TarefaRepositoryMongoDB - desativaTarefa");
     }
-
-
 }

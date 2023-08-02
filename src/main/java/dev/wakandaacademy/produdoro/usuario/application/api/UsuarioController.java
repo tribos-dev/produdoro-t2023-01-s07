@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -38,7 +39,7 @@ public class UsuarioController implements UsuarioAPI {
 	}
 
 	@Override
-	public void mudaStatusPausaLongaId(String token, UUID idUsuario) {
+	public void mudaStatusPausaLongaId(@RequestHeader(name = "Authorization", required = true) String token, UUID idUsuario) {
 		log.info("[inicia] UsuarioController - mudaStatusPausaLongaId");
 		String usuario = getUsuarioByToken(token);
 		usuarioAppplicationService.mudaStatusPausaLongaId(usuario, idUsuario);

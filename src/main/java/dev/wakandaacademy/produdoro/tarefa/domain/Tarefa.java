@@ -43,12 +43,21 @@ public class Tarefa {
 		this.statusAtivacao = StatusAtivacaoTarefa.INATIVA;
 		this.contagemPomodoro = 1;
 	}
+	
+	public void contagemPomodoro() {
+		this.contagemPomodoro += 1;
+	}
 
 	public void pertenceAoUsuario(Usuario usuarioPorEmail) {
 		if (!this.idUsuario.equals(usuarioPorEmail.getIdUsuario())) {
 			throw APIException.build(HttpStatus.UNAUTHORIZED, "Usuário não é dono da Tarefa solicitada!");
 		}
 	}
+
+
+    public void concluiTarefa() {
+		this.status = StatusTarefa.CONCLUIDA;
+    }
 
 	public void ativaTarefa() {
 		this.statusAtivacao = StatusAtivacaoTarefa.ATIVA;
@@ -60,4 +69,5 @@ public class Tarefa {
 					.build(HttpStatus.UNAUTHORIZED, "Usuário não validado!");
 		}
 	}
+
 }
