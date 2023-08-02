@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.UUID;
 public interface TarefaService {
     TarefaIdResponse criaNovaTarefa(TarefaRequest tarefaRequest);
-
     Tarefa detalhaTarefa(String usuario, UUID idTarefa);
+    void concluiTarefa(String usuarioEmail, UUID idTarefa);
 	List<TarefaDetalhadoResponse> listaTodasTarefas(String usuario, UUID idUsuario);
-
     void ativaTarefa(UUID idTarefa, UUID idUsuario, String usuario);
+
 }
 
 

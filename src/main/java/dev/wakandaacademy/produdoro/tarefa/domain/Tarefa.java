@@ -54,6 +54,11 @@ public class Tarefa {
 		}
 	}
 
+
+    public void concluiTarefa() {
+		this.status = StatusTarefa.CONCLUIDA;
+    }
+
 	public void ativaTarefa() {
 		this.statusAtivacao = StatusAtivacaoTarefa.ATIVA;
 	}
@@ -64,4 +69,5 @@ public class Tarefa {
 					.build(HttpStatus.UNAUTHORIZED, "Usuário não validado!");
 		}
 	}
+
 }
