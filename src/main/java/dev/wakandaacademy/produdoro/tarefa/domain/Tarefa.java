@@ -43,6 +43,10 @@ public class Tarefa {
 		this.statusAtivacao = StatusAtivacaoTarefa.INATIVA;
 		this.contagemPomodoro = 1;
 	}
+	
+	public void contagemPomodoro() {
+		this.contagemPomodoro += 1;
+	}
 
 	public void pertenceAoUsuario(Usuario usuarioPorEmail) {
 		if (!this.idUsuario.equals(usuarioPorEmail.getIdUsuario())) {
