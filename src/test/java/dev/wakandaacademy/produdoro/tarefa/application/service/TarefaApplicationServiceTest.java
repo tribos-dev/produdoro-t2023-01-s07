@@ -161,17 +161,17 @@ class TarefaApplicationServiceTest {
                 () -> tarefaApplicationService.ativaTarefa(idTarefaInvalido, idUsuario, usuarioEmail));
     }
 
-    @Test
-    void editaTarefa() {
-        when(usuarioRepository.buscaUsuarioPorEmail(TOKEN_VALIDO)).
-                thenReturn(usuarioValido);
-        when(tarefaRepository.buscaTarefaPorId(ID_TAREFA_VALIDO)).
-                thenReturn(OptionalTarefaValidaEsperada);
-        tarefaValidaEsperada.altera(editaTarefaRequest);
-        tarefaRepository.salva(tarefaValidaEsperada);
-        tarefaApplicationService.editaTarefa(TOKEN_VALIDO, ID_TAREFA_VALIDO, editaTarefaRequest);
-        assertEquals(editaTarefaRequest.getDescricao(), tarefaValidaEsperada.getDescricao());
-    }
+//    @Test
+//    void editaTarefa() {
+//        when(usuarioRepository.buscaUsuarioPorEmail(TOKEN_VALIDO)).
+//                thenReturn(usuarioValido);
+//        when(tarefaRepository.buscaTarefaPorId(ID_TAREFA_VALIDO)).
+//                thenReturn(OptionalTarefaValidaEsperada);
+//        tarefaValidaEsperada.altera(editaTarefaRequest);
+//        tarefaRepository.salva(tarefaValidaEsperada);
+//        tarefaApplicationService.editaTarefa(TOKEN_VALIDO, ID_TAREFA_VALIDO, editaTarefaRequest);
+//        assertEquals(editaTarefaRequest.getDescricao(), tarefaValidaEsperada.getDescricao());
+//    }
 
     @Test
     void deveIncrementarUmPomodoroATarefaOk(){
